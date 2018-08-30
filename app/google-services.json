@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "569530504373",
+    "firebase_url": "https://assist-256f0.firebaseio.com",
+    "project_id": "assist-256f0",
+    "storage_bucket": "assist-256f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569530504373:android:2e99c2c797d786da",
+        "android_client_info": {
+          "package_name": "com.krishna.assistsample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "569530504373-j2f1qc6daqgrq5u46b7q5k6lg99gtgal.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB6PlGyq4GqgLb_l98EeeV8H5n3bv7AqI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

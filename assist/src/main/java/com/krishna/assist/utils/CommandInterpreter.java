@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.krishna.assist.BuildConfig;
 import com.krishna.assist.api.ApiClient;
 import com.krishna.assist.api.ApiInterface;
 import com.krishna.assist.api.NotificationData;
@@ -154,7 +155,8 @@ public class CommandInterpreter {
 
         ApiInterface api = ApiClient.getClient().create(ApiInterface.class);
         RequestNotificaton requestNotificaton = new RequestNotificaton("/topics/assist", new NotificationData(from, commandObj.getCommand(), args, flags, result));
-        Call<ResponseBody> call = api.sendPushNotification(requestNotificaton);
+        String fcmKey = "key=" + BuildConfig.FCM_KEY;
+        Call<ResponseBody> call = api.sendPushNotification(fcmKey, requestNotificaton);
 
         Response<ResponseBody> response = call.execute();
         if (response.isSuccessful()) {
