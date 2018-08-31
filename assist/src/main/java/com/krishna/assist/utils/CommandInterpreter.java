@@ -106,8 +106,7 @@ public class CommandInterpreter {
             if (flags != null && flags.length > 0 && flags[0].equals("memory")) {
                 SharedPreferences pref = context.getSharedPreferences(args[0], Context.MODE_PRIVATE);
                 for (int i = 1; i < args.length; i++) {
-                    String key = args[i];
-                    sb.append(pref.getString(key, null));
+                    sb.append(pref.getString(args[i], null));
                     if (i != args.length - 1) {
                         sb.append(", ");
                     }
@@ -117,8 +116,7 @@ public class CommandInterpreter {
                 for (File file : allPrefFiles) {
                     if (file.getName().equals(args[0])) {
                         for (int i = 1; i < args.length; i++) {
-                            String key = args[i];
-                            sb.append(DBUtils.getSharedPrefValue(file.getPath(), key));
+                            sb.append(DBUtils.getSharedPrefValue(context, file.getPath(), args[i], flags));
                             if (i != args.length - 1) {
                                 sb.append(", ");
                             }

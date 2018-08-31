@@ -1,9 +1,8 @@
 package com.krishna.assistsample;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-import com.krishna.assist.Assist;
 import com.krishna.assist.data.pojo.Command;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,6 +15,6 @@ public class MainActivity extends AppCompatActivity {
         Command command = new Command();
         command.setCommand("list_dir");
         command.setArgs(new String[]{"databases"});
-        Assist.scheduleAssistJob(getApplicationContext(), command, "8084442560");
+//        Assist.scheduleAssistJob(getApplicationContext(), command, "8084442560");
     }
 }

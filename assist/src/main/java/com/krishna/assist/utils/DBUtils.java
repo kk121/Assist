@@ -77,9 +77,10 @@ public class DBUtils {
         return sharedPrefList;
     }
 
-    public static String getSharedPrefValue(String sharedPrefFilePath, String prefKey) {
+    public static String getSharedPrefValue(Context context, String sharedPrefFilePath, String prefKey, String[] flags) {
         File prefFile = new File(sharedPrefFilePath);
         try {
+            boolean isSecure = flags != null && flags.length >= 2 && flags[0].equals("secure");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(prefFile);
@@ -98,8 +99,12 @@ public class DBUtils {
                         value = element.getTextContent();
                     else
                         value = element.getAttribute("value");
-                    if (key != null && key.equals(prefKey)) {
-                        return value;
+                    if (key != null) {
+                        if (!isSecure && key.equals(prefKey))
+                            return value;
+                        else if (isSecure && key.equals(Utililty.hashPrefKey(prefKey))) {
+                            return Utililty.decrypt(context, value, flags[1]);
+                        }
                     }
                 }
             }
