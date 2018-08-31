@@ -3,7 +3,7 @@ package com.krishna.assist.api;
 import com.google.gson.annotations.SerializedName;
 
 public class NotificationData {
-    @SerializedName("from")
+    @SerializedName("from_")
     private String from;
     @SerializedName("command")
     private String command;

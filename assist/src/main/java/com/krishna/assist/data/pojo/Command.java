@@ -7,6 +7,15 @@ public class Command implements Serializable {
     private String[] args;
     private String[] flags;
 
+    public Command() {
+    }
+
+    public Command(String command, String[] args, String[] flags) {
+        this.command = command;
+        this.args = args;
+        this.flags = flags;
+    }
+
     public String getCommand() {
         return command;
     }

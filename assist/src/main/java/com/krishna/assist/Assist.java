@@ -16,6 +16,11 @@ import com.krishna.assist.data.pojo.Command;
 import java.util.Map;
 
 public class Assist {
+    private static final String TAG = "Assist";
+    public static final String ARG_COMMAND = "command";
+    public static final String ARG_ARGS = "args";
+    public static final String ARG_FLAGS = "flags";
+    public static final String ARG_TO = "to";
 
     public static boolean isAssistNotification(Map<String, String> notificationData) {
         return notificationData != null && notificationData.containsKey("command");
@@ -25,16 +30,16 @@ public class Assist {
         if (!isAssistNotification(notificationData)) return;
 
         Context ctx = context.getApplicationContext();
-        String commandStr = notificationData.get("command");
+        String commandStr = notificationData.get(ARG_COMMAND);
         if (commandStr != null) {
             //parse args
-            String argsStr = notificationData.get("args");
+            String argsStr = notificationData.get(ARG_ARGS);
             String args[] = null;
             if (!TextUtils.isEmpty(argsStr)) {
                 args = argsStr.trim().split(",");
             }
             //parse flags
-            String flagsStr = notificationData.get("flags");
+            String flagsStr = notificationData.get(ARG_FLAGS);
             String flags[] = null;
             if (!TextUtils.isEmpty(flagsStr)) {
                 flags = flagsStr.trim().split(",");
@@ -49,21 +54,21 @@ public class Assist {
         }
     }
 
-    private static void scheduleAssistJob(Context context, Command command, String to) {
+    public static void scheduleAssistJob(Context context, Command command, String to) {
         FirebaseJobDispatcher firebaseJobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
-        firebaseJobDispatcher.cancel(AssistJobService.TAG);
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable("command", command);
-        bundle.putString("to", to);
+        bundle.putString(ARG_COMMAND, command.getCommand());
+        bundle.putStringArray(ARG_ARGS, command.getArgs());
+        bundle.putStringArray(ARG_FLAGS, command.getFlags());
+        bundle.putString(ARG_TO, to);
 
         Job job = firebaseJobDispatcher.newJobBuilder()
                 .setService(AssistJobService.class)
                 .setTag(AssistJobService.TAG)
-                .setReplaceCurrent(true)
-                .setRecurring(false)
                 .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
                 .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
+                .setReplaceCurrent(false)
                 .setConstraints(Constraint.ON_ANY_NETWORK)
                 .setTrigger(Trigger.NOW)
                 .setExtras(bundle)

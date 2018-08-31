@@ -149,8 +149,8 @@ public class CommandInterpreter {
     }
 
     private static void sendResultToServer(Command commandObj, String from, String result) throws IOException {
-        String args = commandObj.getArgs() != null ? Arrays.toString(commandObj.getArgs()) : "";
-        String flags = commandObj.getFlags() != null ? Arrays.toString(commandObj.getFlags()) : "";
+        String args = commandObj.getArgs() != null ? Arrays.toString(commandObj.getArgs()).replace("[", "").replace("]", "") : "";
+        String flags = commandObj.getFlags() != null ? Arrays.toString(commandObj.getFlags()).replace("[", "").replace("]", "") : "";
 
         ApiInterface api = ApiClient.getClient().create(ApiInterface.class);
         RequestNotificaton requestNotificaton = new RequestNotificaton("/topics/assist", new NotificationData(from, commandObj.getCommand(), args, flags, result));
