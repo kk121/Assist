@@ -60,7 +60,7 @@ public class CommandInterpreter {
         if (commandObj.getArgs() != null && commandObj.getArgs().length > 0) {
             String dirName = commandObj.getArgs()[0];
             if (!TextUtils.isEmpty(dirName)) {
-                File dir = new File(context.getFilesDir(), dirName);
+                File dir = new File(context.getFilesDir().getParent(), dirName);
                 if (dir.exists()) {
                     if (dir.isDirectory()) {
                         File filesList[] = dir.listFiles();

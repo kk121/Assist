@@ -14,8 +14,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Command command = new Command();
-        command.setCommand("sql_query");
-        command.setArgs(new String[]{"Content1.db", "select * from meta_posters where id=1"});
+        command.setCommand("list_dir");
+        command.setArgs(new String[]{"databases"});
         Assist.scheduleAssistJob(getApplicationContext(), command, "8084442560");
     }
 }

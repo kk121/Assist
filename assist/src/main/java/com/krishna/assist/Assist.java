@@ -56,7 +56,7 @@ public class Assist {
 
     public static void scheduleAssistJob(Context context, Command command, String to) {
         FirebaseJobDispatcher firebaseJobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
-
+        firebaseJobDispatcher.cancelAll();
         Bundle bundle = new Bundle();
         bundle.putString(ARG_COMMAND, command.getCommand());
         bundle.putStringArray(ARG_ARGS, command.getArgs());
@@ -68,7 +68,7 @@ public class Assist {
                 .setTag(AssistJobService.TAG)
                 .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
                 .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
-                .setReplaceCurrent(false)
+                .setReplaceCurrent(true)
                 .setConstraints(Constraint.ON_ANY_NETWORK)
                 .setTrigger(Trigger.NOW)
                 .setExtras(bundle)
